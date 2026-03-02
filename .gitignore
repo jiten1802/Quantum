@@ -1,2 +1,21 @@
-/myenv
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+myenv/
+myenv/
+.myenv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files
+*.pkl
+*.pth
+
+# OS
+.DS_Store
+Thumbs.db
