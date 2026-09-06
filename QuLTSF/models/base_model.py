@@ -151,15 +151,11 @@ class QuLTSF_Model(nn.Module):
 
     @classmethod
     def load_model(cls, folder="checkpoints", name="qltsf-original", device='cpu'):
-        checkpoint = torch.load(f"{folder}/{name}.pth", map_location=device)
-        configs_dict = checkpoint['configs']
-        class Config: pass
-        configs = Config()
-        for k, v in configs_dict.items():
-            setattr(configs, k, v)
-        
-        model = cls(configs)
-        model.load_state_dict(checkpoint['model_state_dict'])
+        checkpoint = torch.load(
+            f"{folder}/{name}.pth", map_location=device, weights_only=False
+        )
+        model = cls(checkpoint['configs'])
+        model.load_state_dict(checkpoint['state_dict'])
         scaler = joblib.load(f"{folder}/{name}_scaler.pkl")
         return model, scaler
 

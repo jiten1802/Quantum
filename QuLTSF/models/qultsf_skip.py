@@ -155,7 +155,9 @@ class QuLTSF_Skip_Model(nn.Module):
 
     @classmethod
     def load_model(cls, folder="checkpoints", name="qultsf_skip", device='cpu'):
-        checkpoint = torch.load(f"{folder}/{name}.pth", map_location=device)
+        checkpoint = torch.load(
+            f"{folder}/{name}.pth", map_location=device, weights_only=False
+        )
         model = cls(checkpoint['configs'])
         model.load_state_dict(checkpoint['state_dict'])
         scaler = joblib.load(f"{folder}/{name}_scaler.pkl")

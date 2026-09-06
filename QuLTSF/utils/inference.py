@@ -9,7 +9,10 @@ def run_inference(model_class, test_loader, experiment_name, device, plot_idx=0)
     
     # 1. Load the model using the @classmethod we defined in each file
     # This automatically reconstructs the architecture from saved configs
-    loaded_model, loaded_scaler = model_class.load_model()
+    loaded_model, loaded_scaler = model_class.load_model(
+        name=experiment_name,
+        device=device
+    )
     
     # 2. Trigger the internal testing logic
     # (Calculates MSE/MAE and shows the Matplotlib plot)

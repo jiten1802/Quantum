@@ -18,7 +18,7 @@ class Patch_QuLTSF_Model(nn.Module):
         self.num_layers = configs.num_layers
         self.QML_device = configs.QML_device
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        
+            
         # Patching Config (P=16 is optimal for 4-qubit Amplitude Embedding)
         self.patch_len = getattr(configs, 'patch_len', 16)
         self.stride = getattr(configs, 'stride', 16)
@@ -146,7 +146,9 @@ class Patch_QuLTSF_Model(nn.Module):
 
     @classmethod
     def load_model(cls, folder="checkpoints", name="patch_qultsf", device='cpu'):
-        checkpoint = torch.load(f"{folder}/{name}.pth", map_location=device)
+        checkpoint = torch.load(
+            f"{folder}/{name}.pth", map_location=device, weights_only=False
+        )
         model = cls(checkpoint['configs'])
         model.load_state_dict(checkpoint['state_dict'])
         scaler = joblib.load(f"{folder}/{name}_scaler.pkl")

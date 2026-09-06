@@ -41,3 +41,10 @@ class Patch_QuLTSF_Skip_Config(BaseConfig):
     num_layers = 3
     patch_len = 16
     stride = 16
+
+class Stiefel_QuLTSF_Config(BaseConfig):
+    model_name = 'Stiefel_QuLTSF'
+    num_qubits = 10
+    num_layers = 4
+    stiefel_lr = 0.01
+    neumann_terms = 3
